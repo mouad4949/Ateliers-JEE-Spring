@@ -15,7 +15,8 @@
 <body>
 
 <h1>Liste des Clients</h1>
-<a href="/clients?action=add">Ajouter un client</a>
+<a href="${pageContext.request.contextPath}/clients?action=add">Ajouter un client</a>
+
 <table border="1">
     <tr>
         <th>ID</th>
@@ -34,6 +35,7 @@
             // Itérer sur la liste des clients et afficher les données
             for (Client client : clients) {
     %>
+
     <tr>
         <td><%= client.getId() %></td>
         <td><%= client.getNom() %></td>
@@ -41,8 +43,8 @@
         <td><%= client.getAddress() %></td>
         <td><%= client.getTelephone() %></td>
         <td>
-            <a href="/clients?action=edit&id=<%= client.getId() %>">Modifier</a>
-            <a href="/clients?action=delete&id=<%= client.getId() %>" onclick="return confirm('Supprimer ce client ?')">Supprimer</a>
+            <a href="${pageContext.request.contextPath}/clients?action=edit&id=<%= client.getId() %>">Modifier</a>
+            <a href="${pageContext.request.contextPath}/clients?action=delete&id=<%= client.getId() %>" onclick="return confirm('Supprimer ce client ?')">Supprimer</a>
         </td>
     </tr>
     <%

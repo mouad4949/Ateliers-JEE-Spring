@@ -32,9 +32,9 @@ public class ClientServlet extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/views/clients.jsp").forward(request, response);
         } else if ("edit".equals(action)) {
             // Modifier un client
-            String id = request.getParameter("id");
-            Client client = clientDAO.trouverById(id);
-            request.setAttribute("client", client);
+            String id = request.getParameter("id"); // Récupérer l'ID depuis le paramètre
+            Client client = clientDAO.trouverById(id); // Récupérer le client correspondant
+            request.setAttribute("client", client);   // Passer le client dans la requête
             request.getRequestDispatcher("/WEB-INF/views/edit-client.jsp").forward(request, response);
         } else if ("delete".equals(action)) {
             // Supprimer un client
@@ -57,19 +57,30 @@ public class ClientServlet extends HttpServlet {
             String email = request.getParameter("email");
             String address = request.getParameter("address");
             String telephone = request.getParameter("telephone");
+
+            // Debug pour vérifier les valeurs reçues
+            System.out.println("Nom: " + nom);
+            System.out.println("Email: " + email);
+            System.out.println("Address: " + address);
+            System.out.println("Telephone: " + telephone);
+
             Client client = new Client(null, nom, email, address, telephone);
-            clientDAO.ajouterClient(client);
+            clientDAO.ajouterClient(client); // Appelle le DAO pour l'insertion
             response.sendRedirect(request.getContextPath() + "/clients");
-        } else if ("update".equals(action)) {
+        }
+        else if ("update".equals(action)) {
             // Modifier un client
-            String id = request.getParameter("id");
+            String id = request.getParameter("id"); // Récupérer l'ID transmis
             String nom = request.getParameter("nom");
             String email = request.getParameter("email");
             String address = request.getParameter("address");
             String telephone = request.getParameter("telephone");
+
+            // Créer un objet client avec les nouvelles valeurs
             Client client = new Client(id, nom, email, address, telephone);
-            clientDAO.modifierClient(client);
-            response.sendRedirect(request.getContextPath() + "/clients");
+            clientDAO.modifierClient(client); // Appeler la méthode de modification dans le DAO
+
+            response.sendRedirect(request.getContextPath() + "/clients"); // Rediriger vers la liste des clients
         }
     }
 }

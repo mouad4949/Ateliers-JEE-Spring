@@ -13,7 +13,9 @@
 </head>
 <body>
 <h1>Liste des Produits</h1>
-<a href="/produits?action=add">Ajouter un produit</a>
+
+<a href="${pageContext.request.contextPath}/produits?action=add">Ajouter un produit</a>
+
 <table border="1">
     <tr>
         <th>ID</th>
@@ -32,8 +34,8 @@
         <td><%= produit.getPrix() %></td>
         <td><%= produit.getQuantite_en_stock() %></td>
         <td>
-            <a href="/produits?action=edit&id=<%= produit.getId() %>">Modifier</a>
-            <a href="/produits?action=delete&id=<%= produit.getId() %>" onclick="return confirm('Supprimer ce produit ?')">Supprimer</a>
+            <a href="${pageContext.request.contextPath}/produits?action=edit&id=<%= produit.getId() %>">Modifier</a>
+            <a href="${pageContext.request.contextPath}/produits?action=delete&id=<%= produit.getId() %>" onclick="return confirm('Supprimer ce produit ?')">Supprimer</a>
         </td>
     </tr>
     <%  }

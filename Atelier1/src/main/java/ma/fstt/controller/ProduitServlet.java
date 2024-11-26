@@ -64,14 +64,29 @@ public class ProduitServlet extends HttpServlet {
             produitDao.ajouterProduit(produit);
             response.sendRedirect(request.getContextPath() + "/produits");
         } else if ("update".equals(action)) {
-            // Mettre à jour un produit existant
-            int id = Integer.parseInt(request.getParameter("id"));
+            String idStr = request.getParameter("id");
             String nom = request.getParameter("nom");
-            int prix = Integer.parseInt(request.getParameter("prix"));
-            int quantiteEnStock = Integer.parseInt(request.getParameter("quantite_en_stock"));
-            Produit produit = new Produit(id, nom, prix, quantiteEnStock);
-            produitDao.mettreAJourProduit(produit);
-            response.sendRedirect(request.getContextPath() + "/produits");
+            String prixStr = request.getParameter("prix");
+            String quantiteStr = request.getParameter("quantite_en_stock");
+
+            if (idStr == null || nom == null || prixStr == null || quantiteStr == null) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Données incomplètes");
+                return;
+            }
+
+            try {
+                int id = Integer.parseInt(idStr);
+                int prix = Integer.parseInt(prixStr);
+                int quantiteEnStock = Integer.parseInt(quantiteStr);
+
+                Produit produit = new Produit(id, nom, prix, quantiteEnStock);
+                produitDao.mettreAJourProduit(produit);
+                response.sendRedirect(request.getContextPath() + "/produits");
+            } catch (NumberFormatException e) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Format de nombre invalide");
+                e.printStackTrace();
+            }
         }
+
     }
 }

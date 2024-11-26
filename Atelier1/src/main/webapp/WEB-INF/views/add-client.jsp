@@ -12,7 +12,8 @@
 </head>
 <body>
 <h1>Ajouter un Client</h1>
-<form action="/clients" method="POST">
+<form action="${pageContext.request.contextPath}/clients" method="POST">
+
     <input type="hidden" name="action" value="add" />
     <label for="nom">Nom:</label>
     <input type="text" id="nom" name="nom" required /><br><br>
@@ -28,7 +29,8 @@
 
     <button type="submit">Ajouter</button>
 </form>
-<a href="/clients">Retour à la liste des clients</a>
+<a href="${pageContext.request.contextPath}/clients">Retour à la liste des clients</a>
+
 </body>
 </html>
 

@@ -51,17 +51,20 @@ public class ClientDao implements ClientRepository {
     }
 
 
-    @Override
     public void ajouterClient(Client client) {
-        String query = "INSERT INTO Client (nom, email, address,telephone) VALUES (?, ?, ?,?)";
+        String query = "INSERT INTO Client (nom, email, address, telephone) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, client.getNom());
             stmt.setString(2, client.getEmail());
             stmt.setString(3, client.getAddress());
-            stmt.setString(3, client.getTelephone());
-            stmt.executeUpdate();
+            stmt.setString(4, client.getTelephone());
+
+            // Debug pour vérifier si l'exécution passe ici
+            System.out.println("Exécution de la requête : " + query);
+
+            stmt.executeUpdate(); // Exécution de l'insertion
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Log de l'exception
         }
     }
 
@@ -78,17 +81,20 @@ public class ClientDao implements ClientRepository {
 
     @Override
     public void modifierClient(Client client) {
-        String query = "UPDATE Client SET nom = ?, email = ?, address = ?,telephone =? WHERE id = ?";
+        String query = "UPDATE Client SET nom = ?, email = ?, address = ?, telephone = ? WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, client.getNom());
             stmt.setString(2, client.getEmail());
             stmt.setString(3, client.getAddress());
-            stmt.setString(3, client.getTelephone());
-            stmt.setString(4, client.getId());
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+            stmt.setString(4, client.getTelephone());
+            stmt.setString(5, client.getId());
 
+            stmt.executeUpdate(); // Exécute la mise à jour
+        } catch (SQLException e) {
+            e.printStackTrace(); // Log en cas d'erreur
+        }
     }
+
+
+
 }
