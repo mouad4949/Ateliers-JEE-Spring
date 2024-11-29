@@ -15,4 +15,10 @@ public class Produit {
     private String description;
     private Double prix;
     private int stock;
+
+    public static Produit findProduitById(long produitId) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
+        EntityManager em = emf.createEntityManager();
+        return em.find(Produit.class, produitId);
+    }
 }

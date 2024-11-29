@@ -17,4 +17,10 @@ public class Client {
     private String telephone;
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Panier> paniers;
+
+    public static Client findClientById(long clientId) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("default");
+        EntityManager em = emf.createEntityManager();
+        return em.find(Client.class, clientId);
+    }
 }
